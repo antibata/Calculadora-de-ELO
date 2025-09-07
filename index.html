@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Calculadora de ELO</title>
+  <title>Calculadora Elo - Supremacy 1914</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
   <style>
@@ -25,6 +25,7 @@
       max-width: 500px;
       width: 100%;
       backdrop-filter: blur(8px);
+      position: relative;
     }
     .logo {
       display: flex;
@@ -42,6 +43,18 @@
       font-size: 26px;
       color: #ff4c4c;
       text-shadow: 0 0 8px rgba(255, 76, 76, 0.7);
+    }
+    .help-icon {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .help-icon:hover {
+      transform: scale(1.1);
     }
     label {
       font-weight: bold;
@@ -119,21 +132,33 @@
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.5);
     }
-    .social-links {
-      margin-top: 10px;
-      display: flex;
+    /* Modal ayuda */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
       justify-content: center;
-      gap: 15px;
+      align-items: center;
     }
-    .social-links img {
-      width: 35px;
-      height: 35px;
-      border-radius: 8px;
-      transition: transform 0.2s;
+    .modal-content {
+      background: #2c2c2c;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      color: #fff;
+      text-align: left;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+    }
+    .close {
+      float: right;
+      font-size: 22px;
+      font-weight: bold;
       cursor: pointer;
-    }
-    .social-links img:hover {
-      transform: scale(1.15);
+      color: #ff4c4c;
     }
   </style>
 </head>
@@ -142,7 +167,9 @@
     <div class="logo">
       <img src="logo 1.jpg" alt="Logo">
     </div>
-    <h2>Calculadora de ELO</h2>
+    <h2>Calculadora Elo</h2>
+    <!-- Icono de ayuda -->
+    <img src="ayuda.png" alt="Ayuda" class="help-icon" onclick="abrirAyuda()">
 
     <label for="elo1">Elo Alianza 1</label>
     <input type="number" id="elo1" value="1300">
@@ -157,17 +184,29 @@
 
   <footer>
     <p>🔹 Con la ayuda de <strong>john numeritos</strong>, quien compartió la fórmula para hacer posible esta calculadora 🔹</p>
-    <div class="social-links">
-      <a href="https://chat.whatsapp.com/CrkaMuvOLl58gmgZXBVmDh?mode=ems_copy_t" target="_blank">
-        <img src="whatsapp.png" alt="WhatsApp">
-      </a>
-      <a href="https://discord.com/invite/WWjSD5ETUC" target="_blank">
-        <img src="discord20.jpg" alt="Discord">
-      </a>
-    </div>
   </footer>
 
+  <!-- Modal de ayuda -->
+  <div class="modal" id="modalAyuda">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarAyuda()">&times;</span>
+      <h3>📘 Cómo usar la Calculadora</h3>
+      <p>1️⃣ Introduce el Elo de cada alianza en los campos correspondientes.</p>
+      <p>2️⃣ Haz clic en <b>Calcular</b>.</p>
+      <p>3️⃣ Verás cuánto Elo ganarás o perderás según el resultado.</p>
+      <p>4️⃣ El gráfico circular muestra la probabilidad de victoria (%) para cada alianza.</p>
+      <p>👉 Solo necesitas ingresar los valores de Elo. El resto lo hace la calculadora.</p>
+    </div>
+  </div>
+
   <script>
+    function abrirAyuda() {
+      document.getElementById("modalAyuda").style.display = "flex";
+    }
+    function cerrarAyuda() {
+      document.getElementById("modalAyuda").style.display = "none";
+    }
+
     function calcularElo() {
       let R1 = parseInt(document.getElementById("elo1").value);
       let R2 = parseInt(document.getElementById("elo2").value);
@@ -178,7 +217,6 @@
 
       let R1_ganar = Math.round(R1 + K * (1 - P1));
       let R1_perder = Math.round(R1 + K * (0 - P1));
-
       let R2_ganar = Math.round(R2 + K * (1 - P2));
       let R2_perder = Math.round(R2 + K * (0 - P2));
 
@@ -216,48 +254,43 @@
         </div>
       `;
 
-      function generarGrafico(id, probGanar, probPerder, color) {
-        new Chart(document.getElementById(id), {
-          type: "pie",
-          data: {
-            labels: ["Prob. ganar", "Prob. perder"],
-            datasets: [{
-              data: [probGanar * 100, probPerder * 100],
-              backgroundColor: [color, "rgba(255,255,255,0.1)"],
-              borderColor: [color, "#444"],
-              borderWidth: 2
-            }]
-          },
-          options: { 
-            responsive: true, 
-            maintainAspectRatio: false, 
-            plugins: { 
-              legend: { display: false },
-              tooltip: { 
-                callbacks: {
-                  label: function(context) {
-                    return context.label + ": " + context.parsed.toFixed(1) + "%";
-                  }
-                }
-              },
-              datalabels: {
-                color: "#fff",
-                font: { weight: "bold", size: 14 },
-                formatter: (value, ctx) => {
-                  if (ctx.dataIndex === 0) {
-                    return value.toFixed(1) + "%";
-                  }
-                  return "";
-                }
-              }
-            }
-          },
-          plugins: [ChartDataLabels]
-        });
-      }
-
       generarGrafico("chart1", P1, P2, "rgba(0,120,255,0.8)");
       generarGrafico("chart2", P2, P1, "rgba(255,0,0,0.8)");
+    }
+
+    function generarGrafico(id, probGanar, probPerder, color) {
+      new Chart(document.getElementById(id), {
+        type: "pie",
+        data: {
+          labels: ["Prob. ganar", "Prob. perder"],
+          datasets: [{
+            data: [probGanar * 100, probPerder * 100],
+            backgroundColor: [color, "rgba(255,255,255,0.1)"],
+            borderColor: [color, "#444"],
+            borderWidth: 2
+          }]
+        },
+        options: { 
+          responsive: true, 
+          maintainAspectRatio: false, 
+          plugins: { 
+            legend: { display: false },
+            tooltip: { 
+              callbacks: {
+                label: function(context) {
+                  return context.label + ": " + context.parsed.toFixed(1) + "%";
+                }
+              }
+            },
+            datalabels: {
+              color: "#fff",
+              font: { weight: "bold", size: 14 },
+              formatter: (value, ctx) => ctx.dataIndex === 0 ? value.toFixed(1) + "%" : ""
+            }
+          }
+        },
+        plugins: [ChartDataLabels]
+      });
     }
   </script>
 </body>
