@@ -333,77 +333,6 @@
         plugins: [ChartDataLabels]
       });
     }
-    <script>
-const traducciones = {
-  es: {
-    titulo: "Calculadora Elo",
-    alianza1: "Alianza 1",
-    alianza2: "Alianza 2",
-    elo1: "Elo Alianza 1",
-    elo2: "Elo Alianza 2",
-    calcular: "Calcular",
-    probGanar: "Prob. ganar",
-    probPerder: "Prob. perder",
-    ayudaTitulo: "📘 Cómo usar la Calculadora",
-    ayudaTexto: [
-      "1️⃣ Introduce el Elo de cada alianza en los campos correspondientes.",
-      "2️⃣ Haz clic en Calcular.",
-      "3️⃣ Verás cuánto Elo ganarás o perderás según el resultado.",
-      "4️⃣ El gráfico circular muestra la probabilidad de victoria (%) para cada alianza.",
-      "👉 Solo necesitas ingresar los valores de Elo. El resto lo hace la calculadora."
-    ]
-  },
-  en: {
-    titulo: "Elo Calculator",
-    alianza1: "Alliance 1",
-    alianza2: "Alliance 2",
-    elo1: "Alliance 1 Elo",
-    elo2: "Alliance 2 Elo",
-    calcular: "Calculate",
-    probGanar: "Win Prob.",
-    probPerder: "Lose Prob.",
-    ayudaTitulo: "📘 How to use the Calculator",
-    ayudaTexto: [
-      "1️⃣ Enter the Elo of each alliance in the corresponding fields.",
-      "2️⃣ Click on Calculate.",
-      "3️⃣ You will see how much Elo you gain or lose depending on the result.",
-      "4️⃣ The pie chart shows the probability of victory (%) for each alliance.",
-      "👉 Just enter the Elo values. The calculator does the rest."
-    ]
-  },
-  pt: {
-    titulo: "Calculadora Elo",
-    alianza1: "Aliança 1",
-    alianza2: "Aliança 2",
-    elo1: "Elo Aliança 1",
-    elo2: "Elo Aliança 2",
-    calcular: "Calcular",
-    probGanar: "Prob. ganhar",
-    probPerder: "Prob. perder",
-    ayudaTitulo: "📘 Como usar a Calculadora",
-    ayudaTexto: [
-      "1️⃣ Insira o Elo de cada aliança nos campos correspondentes.",
-      "2️⃣ Clique em Calcular.",
-      "3️⃣ Você verá quanto Elo ganhará ou perderá dependendo do resultado.",
-      "4️⃣ O gráfico circular mostra a probabilidade de vitória (%) para cada aliança.",
-      "👉 Basta inserir os valores de Elo. O resto a calculadora faz."
-    ]
-  }
-};
-
-function cambiarIdioma(lang) {
-  document.querySelector("h2").innerText = traducciones[lang].titulo;
-  document.querySelector("label[for='elo1']").innerText = traducciones[lang].elo1;
-  document.querySelector("label[for='elo2']").innerText = traducciones[lang].elo2;
-  document.querySelector("button").innerText = traducciones[lang].calcular;
-
-  // Cambiar textos de ayuda
-  document.querySelector("#modalAyuda h3").innerText = traducciones[lang].ayudaTitulo;
-  let ayudaParrafos = document.querySelectorAll("#modalAyuda p");
-  ayudaParrafos.forEach((p, i) => p.innerText = traducciones[lang].ayudaTexto[i]);
-}
-</script>
-
   </script>
 </body>
 <!-- Versión en la esquina inferior izquierda -->
@@ -411,6 +340,7 @@ function cambiarIdioma(lang) {
 
 
 </html>
+
 
 
 
