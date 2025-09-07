@@ -26,6 +26,7 @@
       width: 100%;
       backdrop-filter: blur(8px);
       position: relative;
+      text-align: center;
     }
     .logo {
       display: flex;
@@ -160,6 +161,23 @@
       cursor: pointer;
       color: #ff4c4c;
     }
+    /* 🔹 Estilo para los enlaces sociales */
+    .social-links {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .social-links a img {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      transition: 0.3s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    }
+    .social-links a img:hover {
+      transform: scale(1.1);
+    }
   </style>
 </head>
 <body>
@@ -180,6 +198,16 @@
     <button onclick="calcularElo()">Calcular</button>
 
     <div class="results" id="resultados"></div>
+
+    <!-- 🔹 Enlaces sociales -->
+    <div class="social-links">
+      <a href="https://chat.whatsapp.com/FbDeVb7SwexCtsjPIoIu3R?mode=ems_copy_t" target="_blank">
+        <img src="whaa.webp" alt="WhatsApp">
+      </a>
+      <a href="https://discord.gg/XkKmYxXJaY" target="_blank">
+        <img src="discord20.jpg" alt="Discord">
+      </a>
+    </div>
   </div>
 
   <footer>
@@ -295,6 +323,7 @@
   </script>
 </body>
 </html>
+
 
 
 
