@@ -3,18 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Calculadora Elo - Supremacy 1914</title>
-
-
-   <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7MC7V1YY1G"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-7MC7V1YY1G');
-  </script>
-
-  
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
   <style>
@@ -57,7 +45,6 @@
       color: #ff4c4c;
       text-shadow: 0 0 8px rgba(255, 76, 76, 0.7);
     }
-    /* 🔹 Enlaces sociales */
     .social-links {
       margin: 10px 0 20px;
       display: flex;
@@ -162,7 +149,6 @@
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.5);
     }
-    /* Modal ayuda */
     .modal {
       display: none;
       position: fixed;
@@ -190,57 +176,142 @@
       cursor: pointer;
       color: #ff4c4c;
     }
+     /* Selector de idioma */
+    .lang-select {
+        position: absolute;
+        top: 20px; /* ajusta altura respecto al logo */
+        left: 10px; /* pegado al borde izquierdo */
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(0,0,0, 0.35);
+        padding: 5px 10px;
+        border-radius: 8px;
+        z-index: 10;
+    }
+    .lang-select select {
+        background: transparent;
+        color: #fff;        
+        border: none;
+        outline: none;
+        cursor: pointer;
+    }
+    .lang-select select option {
+        color: #000; /* para que las opciones se vean bien */
+    }
   </style>
+  
 </head>
 <body>
   <div class="container">
+    <div class="lang-select">
+      🌐 <select id="language" onchange="cambiarIdioma()">
+        <option value="es">Español</option>
+        <option value="en">English</option>
+        <option value="pt">Português</option>
+      </select>
+    </div> 
+    
+
+
+
     <div class="logo">
       <img src="logo 1.jpg" alt="Logo">
     </div>
-    <h2>Calculadora Elo</h2>
+    <h2 data-i18n="title">Calculadora Elo</h2>
 
-    <!-- 🔹 Enlaces sociales arriba -->
+    <!-- Enlaces sociales -->
     <div class="social-links">
       <a href="https://chat.whatsapp.com/FbDeVb7SwexCtsjPIoIu3R?mode=ems_copy_t" target="_blank">
-        <img src="whaa.webp" alt="WhatsApp">
+        <img src="Whatsapp Logo.png" alt="WhatsApp">
       </a>
       <a href="https://discord.gg/XkKmYxXJaY" target="_blank">
-        <img src="discord20.jpg" alt="Discord">
+        <img src="DC Logo.png" alt="Discord">
       </a>
     </div>
 
     <!-- Icono de ayuda -->
     <img src="ayuda.png" alt="Ayuda" class="help-icon" onclick="abrirAyuda()">
 
-    <label for="elo1">Elo Alianza 1</label>
+    <label for="elo1" data-i18n="elo1">Elo Alianza 1</label>
     <input type="number" id="elo1" value="1300">
 
-    <label for="elo2">Elo Alianza 2</label>
+    <label for="elo2" data-i18n="elo2">Elo Alianza 2</label>
     <input type="number" id="elo2" value="1400">
 
-    <button onclick="calcularElo()">Calcular</button>
+    <button onclick="calcularElo()" data-i18n="calculate">Calcular</button>
 
     <div class="results" id="resultados"></div>
   </div>
 
   <footer>
-    <p>🔹 Con la ayuda de <strong>john numeritos</strong>, quien compartió la fórmula para hacer posible esta calculadora 🔹</p>
+    <p data-i18n="footer">🔹 Con la ayuda de <strong>john numeritos</strong>, quien compartió la fórmula para hacer posible esta calculadora 🔹</p>
   </footer>
 
   <!-- Modal de ayuda -->
   <div class="modal" id="modalAyuda">
     <div class="modal-content">
       <span class="close" onclick="cerrarAyuda()">&times;</span>
-      <h3>📘 Cómo usar la Calculadora</h3>
-      <p>1️⃣ Introduce el Elo de cada alianza en los campos correspondientes.</p>
-      <p>2️⃣ Haz clic en <b>Calcular</b>.</p>
-      <p>3️⃣ Verás cuánto Elo ganarás o perderás según el resultado.</p>
-      <p>4️⃣ El gráfico circular muestra la probabilidad de victoria (%) para cada alianza.</p>
-      <p>👉 Solo necesitas ingresar los valores de Elo. El resto lo hace la calculadora.</p>
+      <h3 data-i18n="help_title">📘 Cómo usar la Calculadora</h3>
+      <p data-i18n="help1">1️⃣ Introduce el Elo de cada alianza en los campos correspondientes.</p>
+      <p data-i18n="help2">2️⃣ Haz clic en <b>Calcular</b>.</p>
+      <p data-i18n="help3">3️⃣ Verás cuánto Elo ganarás o perderás según el resultado.</p>
+      <p data-i18n="help4">4️⃣ El gráfico circular muestra la probabilidad de victoria (%) para cada alianza.</p>
+      <p data-i18n="help5">👉 Solo necesitas ingresar los valores de Elo. El resto lo hace la calculadora.</p>
     </div>
   </div>
 
   <script>
+    const traducciones = {
+      es: {
+        title: "Calculadora Elo",
+        elo1: "Elo Alianza 1",
+        elo2: "Elo Alianza 2",
+        calculate: "Calcular",
+        footer: "🔹 Con la ayuda de <strong>john numeritos</strong>, quien compartió la fórmula para hacer posible esta calculadora 🔹",
+        help_title: "📘 Cómo usar la Calculadora",
+        help1: "1️⃣ Introduce el Elo de cada alianza en los campos correspondientes.",
+        help2: "2️⃣ Haz clic en <b>Calcular</b>.",
+        help3: "3️⃣ Verás cuánto Elo ganarás o perderás según el resultado.",
+        help4: "4️⃣ El gráfico circular muestra la probabilidad de victoria (%) para cada alianza.",
+        help5: "👉 Solo necesitas ingresar los valores de Elo. El resto lo hace la calculadora."
+      },
+      en: {
+        title: "Elo Calculator",
+        elo1: "Alliance 1 Elo",
+        elo2: "Alliance 2 Elo",
+        calculate: "Calculate",
+        footer: "🔹 With the help of <strong>john numeritos</strong>, who shared the formula that made this calculator possible 🔹",
+        help_title: "📘 How to Use the Calculator",
+        help1: "1️⃣ Enter each alliance's Elo in the corresponding fields.",
+        help2: "2️⃣ Click <b>Calculate</b>.",
+        help3: "3️⃣ You will see how much Elo you win or lose depending on the result.",
+        help4: "4️⃣ The pie chart shows the win probability (%) for each alliance.",
+        help5: "👉 Just enter the Elo values. The calculator does the rest."
+      },
+      pt: {
+        title: "Calculadora Elo",
+        elo1: "Elo Aliança 1",
+        elo2: "Elo Aliança 2",
+        calculate: "Calcular",
+        footer: "🔹 Com a ajuda de <strong>john numeritos</strong>, que compartilhou a fórmula que tornou possível esta calculadora 🔹",
+        help_title: "📘 Como usar a Calculadora",
+        help1: "1️⃣ Insira o Elo de cada aliança nos campos correspondentes.",
+        help2: "2️⃣ Clique em <b>Calcular</b>.",
+        help3: "3️⃣ Você verá quanto Elo ganhará ou perderá conforme o resultado.",
+        help4: "4️⃣ O gráfico de pizza mostra a probabilidade de vitória (%) para cada aliança.",
+        help5: "👉 Basta inserir os valores de Elo. O resto a calculadora faz."
+      }
+    };
+
+    function cambiarIdioma() {
+      const lang = document.getElementById("language").value;
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        el.innerHTML = traducciones[lang][key];
+      });
+    }
+
     function abrirAyuda() {
       document.getElementById("modalAyuda").style.display = "flex";
     }
@@ -335,11 +406,10 @@
     }
   </script>
 </body>
-<!-- Versión en la esquina inferior izquierda -->
-<div class="version">Versión 1.0.1</div>
-
-
+<div class="version">Versión 1.0.2</div>
 </html>
+
+
 
 
 
