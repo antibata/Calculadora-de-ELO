@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora Elo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #000000, #2c2c2c);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: #fff;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+      max-width: 500px;
+      width: 100%;
+      backdrop-filter: blur(8px);
+    }
+    .logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+    .logo img {
+      width: 100px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 26px;
+      color: #ff4c4c;
+      text-shadow: 0 0 8px rgba(255, 76, 76, 0.7);
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 12px;
+      color: #eee;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 12px;
+      background: #ff4c4c;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #e60000;
+      transform: scale(1.03);
+    }
+    .results {
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+    }
+    .player {
+      margin-bottom: 15px;
+      padding: 12px;
+      border-radius: 8px;
+    }
+    .p1 {
+      background: rgba(0, 120, 255, 0.2);
+    }
+    .p2 {
+      background: rgba(255, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="logo 1.jpg" alt="Logo">
+    </div>
+    <h2>Calculadora Elo</h2>
+
+    <label for="elo1">Elo Alianza 1</label>
+    <input type="number" id="elo1" value="1300">
+
+    <label for="elo2">Elo Alianza 2</label>
+    <input type="number" id="elo2" value="1400">
+
+    <button onclick="calcularElo()">Calcular</button>
+
+    <div class="results" id="resultados"></div>
+  </div>
+
+  <script>
+    function calcularElo() {
+      let R1 = parseInt(document.getElementById("elo1").value);
+      let R2 = parseInt(document.getElementById("elo2").value);
+      let K = 50; // 🔹 Valor fijo
+
+      let P1 = 1 / (1 + Math.pow(10, (R2 - R1) / 400));
+      let P2 = 1 - P1;
+
+      let R1_ganar = Math.round(R1 + K * (1 - P1));
+      let R1_perder = Math.round(R1 + K * (0 - P1));
+
+      let R2_ganar = Math.round(R2 + K * (1 - P2));
+      let R2_perder = Math.round(R2 + K * (0 - P2));
+
+      let diff1Ganar = R1_ganar - R1;
+      let diff1Perder = R1_perder - R1;
+      let diff2Ganar = R2_ganar - R2;
+      let diff2Perder = R2_perder - R2;
+
+      document.getElementById("resultados").innerHTML = `
+        <div class="player p1">
+          <h3>Alianza 1</h3>
+          <p>Elo inicial: ${R1}</p>
+          <p>Si gana: ${R1_ganar} (${diff1Ganar > 0 ? "+" + diff1Ganar : diff1Ganar})</p>
+          <p>Si pierde: ${R1_perder} (${diff1Perder})</p>
+        </div>
+        <div class="player p2">
+          <h3>Alianza 2</h3>
+          <p>Elo inicial: ${R2}</p>
+          <p>Si gana: ${R2_ganar} (${diff2Ganar > 0 ? "+" + diff2Ganar : diff2Ganar})</p>
+          <p>Si pierde: ${R2_perder} (${diff2Perder})</p>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
