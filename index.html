@@ -40,10 +40,27 @@
     }
     h2 {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       font-size: 26px;
       color: #ff4c4c;
       text-shadow: 0 0 8px rgba(255, 76, 76, 0.7);
+    }
+    /* 🔹 Enlaces sociales */
+    .social-links {
+      margin: 10px 0 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .social-links a img {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      transition: 0.3s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    }
+    .social-links a img:hover {
+      transform: scale(1.1);
     }
     .help-icon {
       position: absolute;
@@ -161,23 +178,6 @@
       cursor: pointer;
       color: #ff4c4c;
     }
-    /* 🔹 Estilo para los enlaces sociales */
-    .social-links {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
-    .social-links a img {
-      width: 50px;
-      height: 50px;
-      border-radius: 12px;
-      transition: 0.3s;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-    }
-    .social-links a img:hover {
-      transform: scale(1.1);
-    }
   </style>
 </head>
 <body>
@@ -186,6 +186,17 @@
       <img src="logo 1.jpg" alt="Logo">
     </div>
     <h2>Calculadora Elo</h2>
+
+    <!-- 🔹 Enlaces sociales arriba -->
+    <div class="social-links">
+      <a href="https://chat.whatsapp.com/FbDeVb7SwexCtsjPIoIu3R?mode=ems_copy_t" target="_blank">
+        <img src="whaa.webp" alt="WhatsApp">
+      </a>
+      <a href="https://discord.gg/XkKmYxXJaY" target="_blank">
+        <img src="discord20.jpg" alt="Discord">
+      </a>
+    </div>
+
     <!-- Icono de ayuda -->
     <img src="ayuda.png" alt="Ayuda" class="help-icon" onclick="abrirAyuda()">
 
@@ -198,16 +209,6 @@
     <button onclick="calcularElo()">Calcular</button>
 
     <div class="results" id="resultados"></div>
-
-    <!-- 🔹 Enlaces sociales -->
-    <div class="social-links">
-      <a href="https://chat.whatsapp.com/FbDeVb7SwexCtsjPIoIu3R?mode=ems_copy_t" target="_blank">
-        <img src="whaa.webp" alt="WhatsApp">
-      </a>
-      <a href="https://discord.gg/XkKmYxXJaY" target="_blank">
-        <img src="discord20.jpg" alt="Discord">
-      </a>
-    </div>
   </div>
 
   <footer>
@@ -323,3 +324,5 @@
   </script>
 </body>
 </html>
+
+
